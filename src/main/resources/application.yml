@@ -18,3 +18,9 @@ pebble:
   suffix:
   # 开发阶段禁用模板缓存:
   cache: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, beans, env, metrics
