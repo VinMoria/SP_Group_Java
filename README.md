@@ -5,9 +5,10 @@
 4. MyBatis ✔
 5. Hibernate
 6. K8s
-7. SQL优化
-8. Hadoop
-9. Spark
+7. Redis ✔
+8. SQL优化
+9. Hadoop
+10. Spark
 
 ## 备忘录：
 数据库的用户名与密码可以配置系统的环境变量（需要在application.yml中指定）:

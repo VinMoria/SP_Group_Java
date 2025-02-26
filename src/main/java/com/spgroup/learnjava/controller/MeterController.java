@@ -3,6 +3,7 @@ package com.spgroup.learnjava.controller;
 import org.springframework.web.bind.annotation.*;
 import com.spgroup.learnjava.model.MeterReading;
 import com.spgroup.learnjava.mapper.MeterReadingMapper;
+import com.spgroup.learnjava.service.RedisService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,9 @@ public class MeterController {
 
     @Autowired
     private MeterReadingMapper meterReadingMapper;
+
+    @Autowired
+    private RedisService redisService;
 
     @GetMapping("/hello")
     public String hello() {
@@ -54,5 +58,37 @@ public class MeterController {
         }
         return response;
     }
-    
+
+    @PostMapping("/redis/set")
+    public Map<String, Object> setRedisValue(@RequestParam String key, @RequestParam String value) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            redisService.saveToRedis(key, value);
+            response.put("status", 200);
+            response.put("message", "Value set successfully in Redis");
+        } catch (Exception e) {
+            response.put("status", 500);
+            response.put("message", "Failed to set value in Redis: " + e.getMessage());
+        }
+        return response;
+    }
+
+    @GetMapping("/redis/get")
+    public Map<String, Object> getRedisValue(@RequestParam String key) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            Object value = redisService.getFromRedis(key);
+            if (value != null) {
+                response.put("status", 200);
+                response.put("value", value);
+            } else {
+                response.put("status", 404);
+                response.put("message", "No value found in Redis for key: " + key);
+            }
+        } catch (Exception e) {
+            response.put("status", 500);
+            response.put("message", "Failed to get value from Redis: " + e.getMessage());
+        }
+        return response;
+    }
 }
