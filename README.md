@@ -3,7 +3,7 @@
 2. SpringBoot ✔
 3. Spring Cloud
 4. MyBatis ✔
-5. Hibernate
+5. Hibernate ✔
 6. K8s
 7. Redis ✔
 8. SQL优化
