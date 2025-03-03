@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spgroup.learnjava.mapper.MeterReadingMapper">
+
+    <insert id="insert">
+        INSERT INTO meter_readings(meter_id, reading, timestamp)
+        VALUES(#{meterId}, #{reading}, #{timestamp})
+    </insert>
+
+    <select id="getReadingSum" resultType="java.lang.Double">
+        SELECT SUM(reading) FROM meter_readings WHERE meter_id = #{meterId}
+    </select>
+
+</mapper>
